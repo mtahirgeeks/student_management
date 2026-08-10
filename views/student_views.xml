@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_student_student_list" model="ir.ui.view">
+        <field name="name">student.student.list</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <list string="Students">
+                <field name="name" />
+                <field name="roll_number" />
+                <field name="email" />
+                <field name="phone" />
+                <field name="gender" />
+                <field name="active" widget="boolean_toggle" />
+            </list>
+        </field>
+    </record>
+
+    <!-- Student Form View -->
+    <record id="view_student_student_form" model="ir.ui.view">
+        <field name="name">student.student.form</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <form string="Student">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" placeholder="e.g. John Doe" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Personal Information">
+                            <field name="roll_number" />
+                            <field name="date_of_birth" />
+                            <field name="gender" />
+                        </group>
+                        <group string="Contact Details">
+                            <field name="email" widget="email" />
+                            <field name="phone" widget="phone" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="active" />
+                    </group>
+                    <notebook>
+                        <page string="Enrollments" name="enrollments">
+                            <field name="enrollment_ids" readonly="1">
+                                <list>
+                                    <field name="name" />
+                                    <field name="course_id" />
+                                    <field name="enrollment_date" />
+                                    <field name="state" widget="badge"
+                                        decoration-info="state == 'enrolled'"
+                                        decoration-warning="state == 'in_progress'"
+                                        decoration-success="state == 'completed'" />
+                                    <field name="progress_percentage" widget="progressbar" />
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Attendance" name="attendance">
+                            <field name="attendance_ids" readonly="1">
+                                <list>
+                                    <field name="course_id" />
+                                    <field name="date" />
+                                    <field name="state" widget="badge"
+                                        decoration-success="state == 'present'"
+                                        decoration-danger="state == 'absent'"
+                                        decoration-warning="state == 'late'"
+                                        decoration-info="state == 'excused'" />
+                                    <field name="remarks" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Student Search View -->
+    <record id="view_student_student_search" model="ir.ui.view">
+        <field name="name">student.student.search</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <search string="Search Students">
+                <field name="name" />
+                <field name="roll_number" />
+                <separator />
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]" />
+                <filter string="Active" name="active" domain="[('active', '=', True)]" />
+                <group expand="0" string="Group By">
+                    <filter string="Gender" name="group_by_gender" context="{'group_by':'gender'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

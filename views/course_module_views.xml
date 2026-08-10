@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Course Module List View -->
+    <record id="view_student_course_module_list" model="ir.ui.view">
+        <field name="name">student.course.module.list</field>
+        <field name="model">student.course.module</field>
+        <field name="arch" type="xml">
+            <list string="Course Modules">
+                <field name="sequence" widget="handle"/>
+                <field name="course_id"/>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Course Module Form View -->
+    <record id="view_student_course_module_form" model="ir.ui.view">
+        <field name="name">student.course.module.form</field>
+        <field name="model">student.course.module</field>
+        <field name="arch" type="xml">
+            <form string="Course Module">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Module Title"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="course_id"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Learning Content" name="content">
+                            <field name="content" widget="html" placeholder="Enter learning content..."/>
+                        </page>
+                        <page string="Quiz Questions" name="quiz_questions">
+                            <field name="question_ids" context="{'active_test': False}">
+                                <list>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="active" widget="boolean_toggle"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Course Module Search View -->
+    <record id="view_student_course_module_search" model="ir.ui.view">
+        <field name="name">student.course.module.search</field>
+        <field name="model">student.course.module</field>
+        <field name="arch" type="xml">
+            <search string="Search Modules">
+                <field name="name"/>
+                <field name="course_id"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Course" name="group_by_course" context="{'group_by':'course_id'}"/> 
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

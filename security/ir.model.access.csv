@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_student_course,student.course,model_student_course,base.group_user,1,1,1,1
+access_student_student,student.student,model_student_student,base.group_user,1,1,1,1
+access_student_course_module,student.course.module,model_student_course_module,base.group_user,1,1,1,1
+access_student_quiz_question,student.quiz.question,model_student_quiz_question,base.group_user,1,1,1,1
+access_student_quiz_option,student.quiz.option,model_student_quiz_option,base.group_user,1,1,1,1
+access_student_enrollment,student.enrollment,model_student_enrollment,base.group_user,1,1,1,1
+access_student_module_progress,student.module.progress,model_student_module_progress,base.group_user,1,1,1,1
+access_student_quiz_attempt,student.quiz.attempt,model_student_quiz_attempt,base.group_user,1,1,1,1
+access_student_quiz_answer,student.quiz.answer,model_student_quiz_answer,base.group_user,1,1,1,1
+access_student_attendance,student.attendance,model_student_attendance,base.group_user,1,1,1,1

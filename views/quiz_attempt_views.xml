@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Quiz Attempt List View -->
+    <record id="view_student_quiz_attempt_list" model="ir.ui.view">
+        <field name="name">student.quiz.attempt.list</field>
+        <field name="model">student.quiz.attempt</field>
+        <field name="arch" type="xml">
+            <list string="Quiz Attempts">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="module_id"/>
+                <field name="attempt_date"/>
+                <field name="score_percentage" widget="progressbar"/>
+                <field name="passed" widget="boolean_toggle"/>
+                <field name="state" widget="badge" decoration-success="state == 'submitted'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Quiz Attempt Form View -->
+    <record id="view_student_quiz_attempt_form" model="ir.ui.view">
+        <field name="name">student.quiz.attempt.form</field>
+        <field name="model">student.quiz.attempt</field>
+        <field name="arch" type="xml">
+            <form string="Quiz Attempt">
+                <header>
+                    <button name="action_submit_quiz" type="object" string="Submit Quiz" class="oe_highlight" invisible="state == 'submitted'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="enrollment_id" readonly="state == 'submitted'"/>
+                            <field name="student_id" readonly="1"/>
+                            <field name="module_id" readonly="state == 'submitted'"/>
+                            <field name="attempt_date" readonly="state == 'submitted'"/>
+                        </group>
+                        <group>
+                            <field name="score_percentage" widget="progressbar"/>
+                            <field name="passed" widget="boolean_toggle" readonly="1"/>
+                            <field name="total_questions" readonly="1"/>
+                            <field name="correct_answers" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Answers" name="answers">
+                            <field name="answer_ids" readonly="state == 'submitted'">
+                                <list editable="bottom">
+                                    <field name="question_id"/>
+                                    <!-- Use domain on selected_option_id to only show options for that question -->
+                                    <field name="selected_option_id" domain="[('question_id', '=', question_id)]"/>
+                                    <field name="is_correct" widget="boolean_toggle" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Quiz Attempt Search View -->
+    <record id="view_student_quiz_attempt_search" model="ir.ui.view">
+        <field name="name">student.quiz.attempt.search</field>
+        <field name="model">student.quiz.attempt</field>
+        <field name="arch" type="xml">
+            <search string="Search Quiz Attempts">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="module_id"/>
+                <filter string="Passed" name="passed" domain="[('passed', '=', True)]"/>
+                <filter string="Failed" name="failed" domain="[('passed', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Module" name="group_by_module" context="{'group_by':'module_id'}"/> 
+                    <filter string="Student" name="group_by_student" context="{'group_by':'student_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

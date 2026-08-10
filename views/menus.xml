@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Window Actions -->
+
+    <!-- Student Action -->
+    <record id="action_student_student" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">student.student</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_student_student_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register a new student!
+            </p>
+        </field>
+    </record>
+
+    <!-- Course Action -->
+    <record id="action_student_course" model="ir.actions.act_window">
+        <field name="name">Courses</field>
+        <field name="res_model">student.course</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_student_course_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new course!
+            </p>
+        </field>
+    </record>
+
+    <!-- Enrollment Action -->
+    <record id="action_student_enrollment" model="ir.actions.act_window">
+        <field name="name">Enrollments</field>
+        <field name="res_model">student.enrollment</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_student_enrollment_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Enroll a student into a course!
+            </p>
+        </field>
+    </record>
+
+    <!-- Course Module Action -->
+    <record id="action_student_course_module" model="ir.actions.act_window">
+        <field name="name">Modules</field>
+        <field name="res_model">student.course.module</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_student_course_module_search"/>
+    </record>
+
+    <!-- Quiz Question Action -->
+    <record id="action_student_quiz_question" model="ir.actions.act_window">
+        <field name="name">Quiz Questions</field>
+        <field name="res_model">student.quiz.question</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_student_quiz_question_search"/>
+    </record>
+
+    <!-- Quiz Attempt Action -->
+    <record id="action_student_quiz_attempt" model="ir.actions.act_window">
+        <field name="name">Quiz Attempts</field>
+        <field name="res_model">student.quiz.attempt</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_student_quiz_attempt_search"/>
+    </record>
+
+    <!-- Menu Structure -->
+
+    <!-- Root Menu -->
+    <menuitem id="menu_student_management_root"
+              name="Student Management"
+              sequence="10"/>
+
+    <!-- Top Level Submenus -->
+    <menuitem id="menu_student_student"
+              name="Students"
+              parent="menu_student_management_root"
+              action="action_student_student"
+              sequence="10"/>
+
+    <menuitem id="menu_student_course"
+              name="Courses"
+              parent="menu_student_management_root"
+              action="action_student_course"
+              sequence="20"/>
+
+    <menuitem id="menu_student_enrollment"
+              name="Enrollments"
+              parent="menu_student_management_root"
+              action="action_student_enrollment"
+              sequence="30"/>
+
+    <menuitem id="menu_student_attendance"
+              name="Attendance"
+              parent="menu_student_management_root"
+              action="action_student_attendance"
+              sequence="35"/>
+
+    <menuitem id="menu_student_learning"
+              name="Learning"
+              parent="menu_student_management_root"
+              sequence="40"/>
+
+    <!-- Learning Submenus -->
+    <menuitem id="menu_student_module"
+              name="Modules"
+              parent="menu_student_learning"
+              action="action_student_course_module"
+              sequence="10"/>
+
+    <menuitem id="menu_student_quiz"
+              name="Quiz Questions"
+              parent="menu_student_learning"
+              action="action_student_quiz_question"
+              sequence="20"/>
+
+    <menuitem id="menu_student_attempt"
+              name="Quiz Attempts"
+              parent="menu_student_learning"
+              action="action_student_quiz_attempt"
+              sequence="30"/>
+</odoo>

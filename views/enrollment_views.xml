@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Enrollment List View -->
+    <record id="view_student_enrollment_list" model="ir.ui.view">
+        <field name="name">student.enrollment.list</field>
+        <field name="model">student.enrollment</field>
+        <field name="arch" type="xml">
+            <list string="Enrollments">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="course_id"/>
+                <field name="enrollment_date"/>
+                <field name="attendance_percentage" widget="progressbar"/>
+                <field name="progress_percentage" widget="progressbar"/>
+                <field name="state" widget="badge" decoration-info="state == 'enrolled'" decoration-warning="state == 'in_progress'" decoration-success="state == 'completed'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Enrollment Form View -->
+    <record id="view_student_enrollment_form" model="ir.ui.view">
+        <field name="name">student.enrollment.form</field>
+        <field name="model">student.enrollment</field>
+        <field name="arch" type="xml">
+            <form string="Enrollment">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="enrolled,in_progress,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="student_id"/>
+                            <field name="course_id"/>
+                            <field name="enrollment_date"/>
+                        </group>
+                        <group>
+                            <field name="attendance_percentage" widget="progressbar"/>
+                            <field name="progress_percentage" widget="progressbar"/>
+                            <field name="completed_modules" readonly="1"/>
+                            <field name="total_modules" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Module Progress" name="module_progress">
+                            <field name="progress_ids" readonly="1">
+                                <list>
+                                    <field name="module_id"/>
+                                    <field name="is_completed" widget="boolean_toggle"/>
+                                    <field name="completion_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Quiz Attempts" name="quiz_attempts">
+                            <field name="attempt_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="module_id"/>
+                                    <field name="attempt_date"/>
+                                    <field name="score_percentage" widget="progressbar"/>
+                                    <field name="passed" widget="boolean_toggle"/>
+                                    <field name="state" widget="badge" decoration-success="state == 'submitted'"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Attendance" name="attendance">
+                            <field name="attendance_ids">
+                                <list editable="bottom">
+                                    <field name="date"/>
+                                    <field name="state"/>
+                                    <field name="remarks"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Enrollment Search View -->
+    <record id="view_student_enrollment_search" model="ir.ui.view">
+        <field name="name">student.enrollment.search</field>
+        <field name="model">student.enrollment</field>
+        <field name="arch" type="xml">
+            <search string="Search Enrollments">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="course_id"/>
+                <filter string="Completed" name="completed" domain="[('state', '=', 'completed')]"/>
+                <filter string="In Progress" name="in_progress" domain="[('state', '=', 'in_progress')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Course" name="group_by_course" context="{'group_by':'course_id'}"/> 
+                    <filter string="Student" name="group_by_student" context="{'group_by':'student_id'}"/>
+                    <filter string="State" name="group_by_state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>
