@@ -7,8 +7,8 @@
             <list string="Students">
                 <field name="name" />
                 <field name="roll_number" />
-                <field name="email" />
                 <field name="phone" />
+                <field name="email" />
                 <field name="gender" />
                 <field name="active" widget="boolean_toggle" />
             </list>
@@ -35,8 +35,8 @@
                             <field name="gender" />
                         </group>
                         <group string="Contact Details">
-                            <field name="email" widget="email" />
                             <field name="phone" widget="phone" />
+                            <field name="email" widget="email" />
                         </group>
                     </group>
                     <group>
